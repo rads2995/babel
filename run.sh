@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
 podman run \
---volume=$(pwd):/home/builder/babel:rw,U,Z \
+--volume=$(pwd):/home/babel:rw,U,Z \
 -it \
---rm \
---cap-add=SYS_PTRACE \
---security-opt seccomp=unconfined \
---device=/dev/kfd \
---device=/dev/dri \
---group-add video \
---ipc=host \
+--user $(id -u):$(id -g) \
+--userns=keep-id \
 babel:latest
+
+# Flags for AMD ROCm GPU support
+# --cap-add=SYS_PTRACE \
+# --security-opt seccomp=unconfined \
+# --device=/dev/kfd \
+# --device=/dev/dri \
+# --group-add video \
+# --ipc=host \

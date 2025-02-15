@@ -9,7 +9,4 @@ RUN apt-get install -y \
     python3-venv \
     ffmpeg
 
-# Since we do not need root anymore, switch to normal user
-RUN useradd -m builder
-USER builder
-WORKDIR /home/builder
+WORKDIR /home
