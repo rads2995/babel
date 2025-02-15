@@ -1,9 +1,13 @@
-# Build from Red Hat Universal Base Image
-FROM redhat/ubi9-minimal:latest
+# Build from Docker's official Debian image
+FROM docker.io/debian:bookworm-slim
 
 # Update packages and install required dependencies
-RUN microdnf -y upgrade
-RUN microdnf -y install python3.12
+RUN apt-get update && apt-get -y upgrade
+RUN apt-get install -y \
+    python3 \
+    python3-pip \
+    python3-venv \
+    ffmpeg
 
 # Since we do not need root anymore, switch to normal user
 RUN useradd -m builder
