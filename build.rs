@@ -4,6 +4,7 @@ use std::path::{Path, PathBuf};
 fn main() {
     let whispercpp_path: &Path = Path::new("./third-party/whisper.cpp");
     let dst: PathBuf = Config::new(whispercpp_path)
+        .define("GGML_VULKAN", "1")
         .very_verbose(true)
         .build();
 
