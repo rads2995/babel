@@ -1,0 +1,8 @@
+[package]
+name = "babel"
+version = "0.1.0"
+edition = "2024"
+
+[build-dependencies]
+cc = "1.2.14"
+cmake = "0.1.54"

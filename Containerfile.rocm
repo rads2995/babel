@@ -1,8 +1,0 @@
-# Build from AMD's official PyTorch on ROCm image
-FROM docker.io/rocm/pytorch:latest
-
-# Update packages and install required dependencies
-RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y ffmpeg
-
-WORKDIR /home/
