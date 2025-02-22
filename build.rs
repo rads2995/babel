@@ -3,7 +3,9 @@ use std::env;
 use std::path::{Path, PathBuf};
 
 fn main() {
-    let build_libs: bool = env::var("BUILD_LIBS").map(|v: String| v == "1").unwrap_or(false);
+    let build_libs: bool = env::var("BUILD_LIBS")
+        .map(|v: String| v == "1")
+        .unwrap_or(false);
 
     if build_libs {
         let whispercpp_path: &Path = Path::new("./third-party/whisper.cpp");
