@@ -228,19 +228,14 @@ pub type ggml_custom3_op_t = core::option::Option<
         userdata: *mut core::ffi::c_void,
     ),
 >;
-pub type ggml_to_float_t = core::option::Option<
-    unsafe extern "C" fn(x: *const core::ffi::c_void, y: *mut f32, k: i64),
->;
-pub type ggml_from_float_t = core::option::Option<
-    unsafe extern "C" fn(x: *const f32, y: *mut core::ffi::c_void, k: i64),
->;
+pub type ggml_to_float_t =
+    core::option::Option<unsafe extern "C" fn(x: *const core::ffi::c_void, y: *mut f32, k: i64)>;
+pub type ggml_from_float_t =
+    core::option::Option<unsafe extern "C" fn(x: *const f32, y: *mut core::ffi::c_void, k: i64)>;
 pub type ggml_backend_dev_t = *mut ggml_backend_device;
 unsafe extern "C" {
-    pub fn ggml_backend_buft_name(
-        buft: ggml_backend_buffer_type_t,
-    ) -> *const core::ffi::c_char;
+    pub fn ggml_backend_buft_name(buft: ggml_backend_buffer_type_t) -> *const core::ffi::c_char;
 }
-
 
 unsafe extern "C" {
 
@@ -260,14 +255,18 @@ unsafe extern "C" {
     pub(crate) unsafe fn ggml_fp16_to_fp32_row(arg1: *const ggml_fp16_t, arg2: *mut f32, arg3: i64);
 
     pub(crate) unsafe fn ggml_fp32_to_fp16_row(arg1: *const f32, arg2: *mut ggml_fp16_t, arg3: i64);
-    
+
     pub(crate) unsafe fn ggml_fp32_to_bf16(arg1: f32) -> ggml_bf16_t;
 
     pub(crate) unsafe fn ggml_bf16_to_fp32(arg1: ggml_bf16_t) -> f32;
 
     pub(crate) unsafe fn ggml_bf16_to_fp32_row(arg1: *const ggml_bf16_t, arg2: *mut f32, arg3: i64);
 
-    pub(crate) unsafe fn ggml_fp32_to_bf16_row_ref(arg1: *const f32, arg2: *mut ggml_bf16_t, arg3: i64);
+    pub(crate) unsafe fn ggml_fp32_to_bf16_row_ref(
+        arg1: *const f32,
+        arg2: *mut ggml_bf16_t,
+        arg3: i64,
+    );
 
     pub(crate) unsafe fn ggml_fp32_to_bf16_row(arg1: *const f32, arg2: *mut ggml_bf16_t, arg3: i64);
 
@@ -290,21 +289,15 @@ unsafe extern "C" {
 
     pub(crate) unsafe fn ggml_print_object(obj: *const ggml_object);
 
-
     pub(crate) unsafe fn ggml_print_objects(ctx: *const ggml_context);
-
 
     pub(crate) unsafe fn ggml_nelements(tensor: *const ggml_tensor) -> i64;
 
-
     pub(crate) unsafe fn ggml_nrows(tensor: *const ggml_tensor) -> i64;
-
 
     pub(crate) unsafe fn ggml_nbytes(tensor: *const ggml_tensor) -> usize;
 
-
     pub(crate) unsafe fn ggml_nbytes_pad(tensor: *const ggml_tensor) -> usize;
-
 
     pub(crate) unsafe fn ggml_blck_size(type_: ggml_type) -> i64;
 
@@ -776,7 +769,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn ggml_gelu_quick_inplace(ctx: *mut ggml_context, a: *mut ggml_tensor)
-        -> *mut ggml_tensor;
+    -> *mut ggml_tensor;
 }
 unsafe extern "C" {
     pub fn ggml_silu(ctx: *mut ggml_context, a: *mut ggml_tensor) -> *mut ggml_tensor;
@@ -815,7 +808,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn ggml_rms_norm(ctx: *mut ggml_context, a: *mut ggml_tensor, eps: f32)
-        -> *mut ggml_tensor;
+    -> *mut ggml_tensor;
 }
 unsafe extern "C" {
     pub fn ggml_rms_norm_inplace(
@@ -1955,26 +1948,15 @@ unsafe extern "C" {
     ) -> usize;
 }
 
-
-
 unsafe extern "C" {
     pub fn ggml_get_type_traits(type_: ggml_type) -> *const ggml_type_traits;
 }
 
-
-
-
-
 unsafe extern "C" {
-    pub fn ggml_threadpool_params_default(
-        n_threads: core::ffi::c_int,
-    ) -> ggml_threadpool_params;
+    pub fn ggml_threadpool_params_default(n_threads: core::ffi::c_int) -> ggml_threadpool_params;
 }
 unsafe extern "C" {
-    pub fn ggml_threadpool_params_init(
-        p: *mut ggml_threadpool_params,
-        n_threads: core::ffi::c_int,
-    );
+    pub fn ggml_threadpool_params_init(p: *mut ggml_threadpool_params, n_threads: core::ffi::c_int);
 }
 unsafe extern "C" {
     pub fn ggml_threadpool_params_match(
@@ -1982,7 +1964,6 @@ unsafe extern "C" {
         p1: *const ggml_threadpool_params,
     ) -> bool;
 }
-
 
 unsafe extern "C" {
     pub fn ggml_tallocr_new(buffer: ggml_backend_buffer_t) -> ggml_tallocr;
@@ -2066,18 +2047,14 @@ unsafe extern "C" {
     pub fn ggml_backend_buft_get_device(buft: ggml_backend_buffer_type_t) -> ggml_backend_dev_t;
 }
 
-
 unsafe extern "C" {
-    pub fn ggml_backend_buffer_name(buffer: ggml_backend_buffer_t)
-        -> *const core::ffi::c_char;
+    pub fn ggml_backend_buffer_name(buffer: ggml_backend_buffer_t) -> *const core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn ggml_backend_buffer_free(buffer: ggml_backend_buffer_t);
 }
 unsafe extern "C" {
-    pub fn ggml_backend_buffer_get_base(
-        buffer: ggml_backend_buffer_t,
-    ) -> *mut core::ffi::c_void;
+    pub fn ggml_backend_buffer_get_base(buffer: ggml_backend_buffer_t) -> *mut core::ffi::c_void;
 }
 unsafe extern "C" {
     pub fn ggml_backend_buffer_get_size(buffer: ggml_backend_buffer_t) -> usize;
@@ -2141,7 +2118,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn ggml_backend_alloc_buffer(backend: ggml_backend_t, size: usize)
-        -> ggml_backend_buffer_t;
+    -> ggml_backend_buffer_t;
 }
 unsafe extern "C" {
     pub fn ggml_backend_get_alignment(backend: ggml_backend_t) -> usize;
@@ -2317,9 +2294,7 @@ unsafe extern "C" {
     pub fn ggml_backend_dev_name(device: ggml_backend_dev_t) -> *const core::ffi::c_char;
 }
 unsafe extern "C" {
-    pub fn ggml_backend_dev_description(
-        device: ggml_backend_dev_t,
-    ) -> *const core::ffi::c_char;
+    pub fn ggml_backend_dev_description(device: ggml_backend_dev_t) -> *const core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn ggml_backend_dev_memory(device: ggml_backend_dev_t, free: *mut usize, total: *mut usize);
@@ -2360,7 +2335,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn ggml_backend_dev_supports_op(device: ggml_backend_dev_t, op: *const ggml_tensor)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     pub fn ggml_backend_dev_supports_buft(
@@ -2481,11 +2456,7 @@ pub struct ggml_backend_sched {
 }
 pub type ggml_backend_sched_t = *mut ggml_backend_sched;
 pub type ggml_backend_sched_eval_callback = core::option::Option<
-    unsafe extern "C" fn(
-        t: *mut ggml_tensor,
-        ask: bool,
-        user_data: *mut core::ffi::c_void,
-    ) -> bool,
+    unsafe extern "C" fn(t: *mut ggml_tensor, ask: bool, user_data: *mut core::ffi::c_void) -> bool,
 >;
 unsafe extern "C" {
     pub fn ggml_backend_sched_new(
@@ -2746,8 +2717,7 @@ unsafe extern "C" {
     pub fn ggml_threadpool_free(threadpool: *mut ggml_threadpool);
 }
 unsafe extern "C" {
-    pub fn ggml_threadpool_get_n_threads(threadpool: *mut ggml_threadpool)
-        -> core::ffi::c_int;
+    pub fn ggml_threadpool_get_n_threads(threadpool: *mut ggml_threadpool) -> core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn ggml_threadpool_pause(threadpool: *mut ggml_threadpool);
@@ -2887,10 +2857,7 @@ unsafe extern "C" {
     pub fn ggml_backend_is_cpu(backend: ggml_backend_t) -> bool;
 }
 unsafe extern "C" {
-    pub fn ggml_backend_cpu_set_n_threads(
-        backend_cpu: ggml_backend_t,
-        n_threads: core::ffi::c_int,
-    );
+    pub fn ggml_backend_cpu_set_n_threads(backend_cpu: ggml_backend_t, n_threads: core::ffi::c_int);
 }
 unsafe extern "C" {
     pub fn ggml_backend_cpu_set_threadpool(
@@ -3023,8 +2990,6 @@ pub struct whisper_token_data {
     pub vlen: f32,
 }
 
-
-
 pub const whisper_gretype_WHISPER_GRETYPE_END: whisper_gretype = 0;
 pub const whisper_gretype_WHISPER_GRETYPE_ALT: whisper_gretype = 1;
 pub const whisper_gretype_WHISPER_GRETYPE_RULE_REF: whisper_gretype = 2;
@@ -3088,9 +3053,7 @@ unsafe extern "C" {
     ) -> *mut whisper_context;
 }
 unsafe extern "C" {
-    pub fn whisper_init_from_file(
-        path_model: *const core::ffi::c_char,
-    ) -> *mut whisper_context;
+    pub fn whisper_init_from_file(path_model: *const core::ffi::c_char) -> *mut whisper_context;
 }
 unsafe extern "C" {
     pub fn whisper_init_from_buffer(
@@ -3804,17 +3767,13 @@ unsafe extern "C" {
     pub fn whisper_bench_memcpy(n_threads: core::ffi::c_int) -> core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn whisper_bench_memcpy_str(
-        n_threads: core::ffi::c_int,
-    ) -> *const core::ffi::c_char;
+    pub fn whisper_bench_memcpy_str(n_threads: core::ffi::c_int) -> *const core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn whisper_bench_ggml_mul_mat(n_threads: core::ffi::c_int) -> core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn whisper_bench_ggml_mul_mat_str(
-        n_threads: core::ffi::c_int,
-    ) -> *const core::ffi::c_char;
+    pub fn whisper_bench_ggml_mul_mat_str(n_threads: core::ffi::c_int) -> *const core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn whisper_log_set(log_callback: ggml_log_callback, user_data: *mut core::ffi::c_void);
