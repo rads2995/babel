@@ -1,5 +1,7 @@
 mod bindings {
-    pub(super) mod whisper;
+    pub(crate) mod ggml;
+    pub(crate) mod whisper;
+    pub(crate) mod llama;
 }
 
 fn main() {
