@@ -1,7 +1,6 @@
-use super::ggml::{
-    ggml_abort_callback,
-    ggml_log_callback,
-};
+#![allow(non_camel_case_types, unused)]
+
+use super::ggml::{ggml_abort_callback, ggml_log_callback};
 
 #[repr(C)]
 pub(crate) struct whisper_model_loader {

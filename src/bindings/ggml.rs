@@ -1,4 +1,4 @@
-#![allow(non_camel_case_types)]
+#![allow(non_camel_case_types, unused, clippy::upper_case_acronyms)]
 
 #[repr(C)]
 pub(crate) struct ggml_backend_buffer {
