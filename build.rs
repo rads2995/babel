@@ -18,7 +18,8 @@ fn main() {
         .build();
 
     let llamacpp_cmake: PathBuf = Config::new(&llamacpp_path)
-        .define("GGML_VULKAN", "1")
+        .define("GGML_HIP", "ON")
+        .define("AMDGPU_TARGETS", "gfx1010")
         .define("BUILD_SHARED_LIBS", "ON")
         .generator("Ninja")
         .build_target("all")
