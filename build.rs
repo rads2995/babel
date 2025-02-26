@@ -6,9 +6,6 @@ fn main() {
     let whispercpp_path: PathBuf = fs::canonicalize("./third-party/whisper.cpp").unwrap();
     let llamacpp_path: PathBuf = fs::canonicalize("./third-party/llama.cpp").unwrap();
 
-    println!("cargo:rerun-if-changed={}", whispercpp_path.display());
-    println!("cargo:rerun-if-changed={}", llamacpp_path.display());
-
     let whispercpp_cmake: PathBuf = Config::new(&whispercpp_path)
         .define("GGML_VULKAN", "1")
         .define("BUILD_SHARED_LIBS", "ON")
