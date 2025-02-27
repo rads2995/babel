@@ -133,14 +133,15 @@ pub(crate) type ggml_op_pool = core::ffi::c_uint;
 pub(crate) type ggml_sched_priority = core::ffi::c_uint;
 pub(crate) type ggml_threadpool_t = *mut ggml_threadpool;
 pub(crate) type ggml_sort_order = core::ffi::c_uint;
-
 pub(crate) type ggml_gallocr_t = *mut ggml_gallocr;
 
 pub(crate) type ggml_abort_callback =
     core::option::Option<unsafe extern "C" fn(data: *mut core::ffi::c_void) -> bool>;
+
 pub(crate) type ggml_unary_op_f32_t = core::option::Option<
     unsafe extern "C" fn(arg1: core::ffi::c_int, arg2: *mut f32, arg3: *const f32),
 >;
+
 pub(crate) type ggml_binary_op_f32_t = core::option::Option<
     unsafe extern "C" fn(
         arg1: core::ffi::c_int,
@@ -149,8 +150,10 @@ pub(crate) type ggml_binary_op_f32_t = core::option::Option<
         arg4: *const f32,
     ),
 >;
+
 pub(crate) type ggml_custom1_op_f32_t =
     core::option::Option<unsafe extern "C" fn(arg1: *mut ggml_tensor, arg2: *const ggml_tensor)>;
+
 pub(crate) type ggml_custom2_op_f32_t = core::option::Option<
     unsafe extern "C" fn(
         arg1: *mut ggml_tensor,
@@ -158,6 +161,7 @@ pub(crate) type ggml_custom2_op_f32_t = core::option::Option<
         arg3: *const ggml_tensor,
     ),
 >;
+
 pub(crate) type ggml_custom3_op_f32_t = core::option::Option<
     unsafe extern "C" fn(
         arg1: *mut ggml_tensor,
@@ -166,6 +170,7 @@ pub(crate) type ggml_custom3_op_f32_t = core::option::Option<
         arg4: *const ggml_tensor,
     ),
 >;
+
 pub(crate) type ggml_log_callback = core::option::Option<
     unsafe extern "C" fn(
         level: ggml_log_level,
@@ -173,6 +178,7 @@ pub(crate) type ggml_log_callback = core::option::Option<
         user_data: *mut core::ffi::c_void,
     ),
 >;
+
 pub(crate) type ggml_custom1_op_t = core::option::Option<
     unsafe extern "C" fn(
         dst: *mut ggml_tensor,
@@ -182,6 +188,7 @@ pub(crate) type ggml_custom1_op_t = core::option::Option<
         userdata: *mut core::ffi::c_void,
     ),
 >;
+
 pub(crate) type ggml_custom2_op_t = core::option::Option<
     unsafe extern "C" fn(
         dst: *mut ggml_tensor,
@@ -192,6 +199,7 @@ pub(crate) type ggml_custom2_op_t = core::option::Option<
         userdata: *mut core::ffi::c_void,
     ),
 >;
+
 pub(crate) type ggml_custom3_op_t = core::option::Option<
     unsafe extern "C" fn(
         dst: *mut ggml_tensor,
@@ -203,8 +211,10 @@ pub(crate) type ggml_custom3_op_t = core::option::Option<
         userdata: *mut core::ffi::c_void,
     ),
 >;
+
 pub(crate) type ggml_to_float_t =
     core::option::Option<unsafe extern "C" fn(x: *const core::ffi::c_void, y: *mut f32, k: i64)>;
+
 pub(crate) type ggml_from_float_t =
     core::option::Option<unsafe extern "C" fn(x: *const f32, y: *mut core::ffi::c_void, k: i64)>;
 
@@ -1823,5 +1833,4 @@ unsafe extern "C" {
         p0: *const ggml_threadpool_params,
         p1: *const ggml_threadpool_params,
     ) -> bool;
-
 }
